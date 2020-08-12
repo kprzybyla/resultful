@@ -18,7 +18,6 @@ class Success(Generic[ValueType]):
     def __repr__(self) -> str:
         return f"{resultful.__name__}.{type(self).__name__}({self.value!r})"
 
-    # noinspection PyTypeChecker
     def __bool__(self) -> Literal[True]:
         return True
 
@@ -27,6 +26,14 @@ class Success(Generic[ValueType]):
             return NotImplemented
 
         return self.value == other.value
+
+    @property
+    def is_success(self) -> Literal[True]:
+        return True
+
+    @property
+    def is_failure(self) -> Literal[False]:
+        return False
 
 
 class Failure(Generic[ErrorType]):
@@ -39,7 +46,6 @@ class Failure(Generic[ErrorType]):
     def __repr__(self) -> str:
         return f"{resultful.__name__}.{type(self).__name__}({self.error!r})"
 
-    # noinspection PyTypeChecker
     def __bool__(self) -> Literal[False]:
         return False
 
@@ -48,3 +54,11 @@ class Failure(Generic[ErrorType]):
             return NotImplemented
 
         return self.error == other.error
+
+    @property
+    def is_success(self) -> Literal[False]:
+        return False
+
+    @property
+    def is_failure(self) -> Literal[True]:
+        return True
