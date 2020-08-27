@@ -1,4 +1,6 @@
 __all__ = [
+    "AlwaysSuccess",
+    "AlwaysFailure",
     "Result",
     "ResultType",
     "NoResultType",
@@ -11,7 +13,11 @@ __all__ = [
 
 # Annotations
 
-from .result import Result
+from .result import (
+    AlwaysSuccess,
+    AlwaysFailure,
+    Result,
+)
 
 # Types
 

@@ -3,13 +3,15 @@ __all__ = [
     "failure",
     "unwrap_success",
     "unwrap_failure",
+    "AlwaysSuccess",
+    "AlwaysFailure",
     "Result",
     "ResultType",
     "NoResult",
     "NoResultType",
 ]
 
-from typing import overload, TypeVar, Union
+from typing import overload, TypeVar, Tuple, Union, Final
 
 from resultful.impl.result import Success, Failure
 from resultful.impl.no_result import NoResult, NoResultType
@@ -17,8 +19,11 @@ from resultful.impl.no_result import NoResult, NoResultType
 ValueType = TypeVar("ValueType")
 ErrorType = TypeVar("ErrorType", bound=BaseException)
 
+AlwaysSuccess = Union[Success[ValueType]]
+AlwaysFailure = Union[Failure[ErrorType]]
 Result = Union[Success[ValueType], Failure[ErrorType]]
-ResultType = (Success, Failure)
+
+ResultType: Final[Tuple[type, ...]] = (Success, Failure)
 
 # TODO(kprzybyla): Remove "type: ignore" once below feature will be implemented
 #                  https://github.com/python/typing/issues/599
@@ -108,6 +113,7 @@ def unwrap_success(result: Success[ValueType]) -> ValueType:
     ...
 
 
+# noinspection PyUnresolvedReferences
 def unwrap_success(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ValueType]:
 
     """
@@ -132,6 +138,7 @@ def unwrap_failure(result: Failure[ErrorType]) -> ErrorType:
     ...
 
 
+# noinspection PyUnresolvedReferences
 def unwrap_failure(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ErrorType]:
 
     """
