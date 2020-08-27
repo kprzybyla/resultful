@@ -11,18 +11,18 @@ __all__ = [
 
 # Annotations
 
-from .ui import Result
+from .result import Result
 
 # Types
 
-from .ui import (
+from .result import (
     ResultType,
     NoResultType,
 )
 
 # Concretes
 
-from .ui import (
+from .result import (
     success,
     failure,
     unwrap_success,
