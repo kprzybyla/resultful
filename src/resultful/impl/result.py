@@ -1,6 +1,15 @@
-__all__ = ["Success", "Failure"]
+__all__ = (
+    "Success",
+    "Failure",
+)
 
-from typing import Any, TypeVar, Generic, Literal, Final
+from typing import (
+    Any,
+    TypeVar,
+    Generic,
+    Literal,
+    Final,
+)
 
 import resultful
 

@@ -1,4 +1,4 @@
-__all__ = [
+__all__ = (
     "AlwaysSuccess",
     "AlwaysFailure",
     "Result",
@@ -9,7 +9,7 @@ __all__ = [
     "unwrap_success",
     "unwrap_failure",
     "NoResult",
-]
+)
 
 # Annotations
 

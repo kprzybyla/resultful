@@ -1,9 +1,20 @@
-from hypothesis import given
-from hypothesis import strategies as st
+from hypothesis import (
+    given,
+    strategies as st,
+)
 
-from resultful import success, failure, unwrap_success, Result, NoResult
+from resultful import (
+    success,
+    failure,
+    unwrap_success,
+    Result,
+    NoResult,
+)
 
-from .conftest import st_exceptions, unreachable
+from .conftest import (
+    st_exceptions,
+    unreachable,
+)
 
 
 @given(value=st.integers())

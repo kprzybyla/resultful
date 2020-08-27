@@ -1,4 +1,4 @@
-__all__ = [
+__all__ = (
     "success",
     "failure",
     "unwrap_success",
@@ -9,12 +9,25 @@ __all__ = [
     "ResultType",
     "NoResult",
     "NoResultType",
-]
+)
 
-from typing import overload, TypeVar, Tuple, Union, Final
+from typing import (
+    overload,
+    TypeVar,
+    Tuple,
+    Union,
+    Final,
+)
 
-from resultful.impl.result import Success, Failure
-from resultful.impl.no_result import NoResult, NoResultType
+from resultful.impl.result import (
+    Success,
+    Failure,
+)
+
+from resultful.impl.no_result import (
+    NoResult,
+    NoResultType,
+)
 
 ValueType = TypeVar("ValueType")
 ErrorType = TypeVar("ErrorType", bound=BaseException)
@@ -45,16 +58,17 @@ def success(value: ValueType, /) -> Success[ValueType]:
 
 
 def success(  # type: ignore
-    value: Union[Failure[ErrorType], Success[ValueType], ValueType], /
+    value: Union[Failure[ErrorType], Success[ValueType], ValueType],
+    /,
 ) -> Union[NoResultType, Success[ValueType]]:
 
     """
-        Returns value wrapped in :class:`Success`.
+    Returns value wrapped in :class:`Success`.
 
-        If value is a :class:`Failure`, returns NoResult.
-        If value is a :class:`Success`, returns that :class:`Success`.
+    If value is a :class:`Failure`, returns NoResult.
+    If value is a :class:`Success`, returns that :class:`Success`.
 
-        :param value: any value
+    :param value: any value
     """
 
     if isinstance(value, Failure):
@@ -82,16 +96,17 @@ def failure(error: ErrorType, /) -> Failure[ErrorType]:
 
 
 def failure(
-    error: Union[Success[ValueType], Failure[ErrorType], ErrorType], /
+    error: Union[Success[ValueType], Failure[ErrorType], ErrorType],
+    /,
 ) -> Union[NoResultType, Failure[ErrorType]]:
 
     """
-        Returns error wrapped in :class:`Failure`.
+    Returns error wrapped in :class:`Failure`.
 
-        If value is a :class:`Success`, returns NoResult.
-        If value is a :class:`Failure`, returns that :class:`Failure`.
+    If value is a :class:`Success`, returns NoResult.
+    If value is a :class:`Failure`, returns that :class:`Failure`.
 
-        :param error: any exception
+    :param error: any exception
     """
 
     if isinstance(error, Success):
@@ -117,9 +132,9 @@ def unwrap_success(result: Success[ValueType]) -> ValueType:
 def unwrap_success(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ValueType]:
 
     """
-        Unwraps error from given :class:`Success`.
+    Unwraps error from given :class:`Success`.
 
-        :param result: :class:`Success`
+    :param result: :class:`Success`
     """
 
     if isinstance(result, Failure):
@@ -142,9 +157,9 @@ def unwrap_failure(result: Failure[ErrorType]) -> ErrorType:
 def unwrap_failure(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ErrorType]:
 
     """
-        Unwraps error from given :class:`Failure`.
+    Unwraps error from given :class:`Failure`.
 
-        :param result: :class:`Failure`
+    :param result: :class:`Failure`
     """
 
     if isinstance(result, Success):

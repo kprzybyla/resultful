@@ -1,4 +1,9 @@
-from typing import Type, TypeVar, Sequence, NoReturn
+from typing import (
+    Type,
+    TypeVar,
+    Sequence,
+    NoReturn,
+)
 
 from hypothesis import strategies as st
 
