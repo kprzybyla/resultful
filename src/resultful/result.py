@@ -1,4 +1,5 @@
 __all__ = (
+    "unsafe",
     "success",
     "failure",
     "unwrap_success",
@@ -37,6 +38,15 @@ AlwaysFailure = Union[Failure[ErrorType]]
 Result = Union[Success[ValueType], Failure[ErrorType]]
 
 ResultType: Final[Tuple[type, ...]] = (Success, Failure)
+
+
+# noinspection PyUnresolvedReferences
+def unsafe(result: Result[ValueType, ErrorType]) -> ValueType:
+    if result:
+        return result.value
+
+    raise result.error
+
 
 # TODO(kprzybyla): Remove "type: ignore" once below feature will be implemented
 #                  https://github.com/python/typing/issues/599
