@@ -4,9 +4,9 @@ __all__ = (
     "failure",
     "unwrap_success",
     "unwrap_failure",
+    "Result",
     "AlwaysSuccess",
     "AlwaysFailure",
-    "Result",
     "ResultType",
     "NoResult",
     "NoResultType",
@@ -33,10 +33,10 @@ from resultful.impl.no_result import (
 ValueType = TypeVar("ValueType")
 ErrorType = TypeVar("ErrorType", bound=BaseException)
 
+Result = Union[Success[ValueType], Failure[ErrorType]]
+
 AlwaysSuccess = Union[Success[ValueType]]
 AlwaysFailure = Union[Failure[ErrorType]]
-
-Result = Union[Success[ValueType], Failure[ErrorType]]
 
 ResultType: Final[Tuple[type, ...]] = (Success, Failure)
 

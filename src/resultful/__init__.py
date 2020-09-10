@@ -1,7 +1,7 @@
 __all__ = (
+    "Result",
     "AlwaysSuccess",
     "AlwaysFailure",
-    "Result",
     "ResultType",
     "NoResultType",
     "unsafe",
@@ -15,9 +15,9 @@ __all__ = (
 # Annotations
 
 from .result import (
+    Result,
     AlwaysSuccess,
     AlwaysFailure,
-    Result,
 )
 
 # Types

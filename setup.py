@@ -1,7 +1,9 @@
 import os
 import codecs
 
-from typing import Final
+from typing import (
+    Final,
+)
 
 from setuptools import (
     setup,
