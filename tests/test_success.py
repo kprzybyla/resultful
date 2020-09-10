@@ -4,6 +4,7 @@ from hypothesis import (
 )
 
 from resultful import (
+    unsafe,
     success,
     failure,
     unwrap_success,
@@ -23,6 +24,11 @@ def test_special_methods(value: int) -> None:
 
     assert bool(result) is True
     assert repr(result) == f"resultful.Success({value!r})"
+
+
+@given(value=st.integers())
+def test_unsafe(value: int) -> None:
+    assert unsafe(success(value)) == value
 
 
 @given(value=st.integers())

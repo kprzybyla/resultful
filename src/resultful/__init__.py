@@ -4,6 +4,7 @@ __all__ = (
     "Result",
     "ResultType",
     "NoResultType",
+    "unsafe",
     "success",
     "failure",
     "unwrap_success",
@@ -29,6 +30,7 @@ from .result import (
 # Concretes
 
 from .result import (
+    unsafe,
     success,
     failure,
     unwrap_success,

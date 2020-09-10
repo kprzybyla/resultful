@@ -35,13 +35,25 @@ ErrorType = TypeVar("ErrorType", bound=BaseException)
 
 AlwaysSuccess = Union[Success[ValueType]]
 AlwaysFailure = Union[Failure[ErrorType]]
+
 Result = Union[Success[ValueType], Failure[ErrorType]]
 
 ResultType: Final[Tuple[type, ...]] = (Success, Failure)
 
 
 # noinspection PyUnresolvedReferences
-def unsafe(result: Result[ValueType, ErrorType]) -> ValueType:
+def unsafe(
+    result: Result[ValueType, ErrorType],
+) -> ValueType:
+
+    """
+    Unwraps the value from given result in unsafe way.
+
+    :param result: result to be unwrapped
+
+    :raises ErrorType: When result is a Failure.
+    """
+
     if result:
         return result.value
 
@@ -53,17 +65,26 @@ def unsafe(result: Result[ValueType, ErrorType]) -> ValueType:
 
 
 @overload
-def success(value: Failure[ErrorType], /) -> NoResultType:  # type: ignore
+def success(  # type: ignore
+    value: Failure[ErrorType],
+    /,
+) -> NoResultType:
     ...
 
 
 @overload
-def success(value: Success[ValueType], /) -> Success[ValueType]:
+def success(
+    value: Success[ValueType],
+    /,
+) -> Success[ValueType]:
     ...
 
 
 @overload
-def success(value: ValueType, /) -> Success[ValueType]:
+def success(
+    value: ValueType,
+    /,
+) -> Success[ValueType]:
     ...
 
 
@@ -91,17 +112,26 @@ def success(  # type: ignore
 
 
 @overload
-def failure(error: Success[ValueType], /) -> NoResultType:
+def failure(
+    error: Success[ValueType],
+    /,
+) -> NoResultType:
     ...
 
 
 @overload
-def failure(error: Failure[ErrorType], /) -> Failure[ErrorType]:
+def failure(
+    error: Failure[ErrorType],
+    /,
+) -> Failure[ErrorType]:
     ...
 
 
 @overload
-def failure(error: ErrorType, /) -> Failure[ErrorType]:
+def failure(
+    error: ErrorType,
+    /,
+) -> Failure[ErrorType]:
     ...
 
 
@@ -129,20 +159,26 @@ def failure(
 
 
 @overload
-def unwrap_success(result: Failure[ErrorType]) -> NoResultType:
+def unwrap_success(
+    result: Failure[ErrorType],
+) -> NoResultType:
     ...
 
 
 @overload
-def unwrap_success(result: Success[ValueType]) -> ValueType:
+def unwrap_success(
+    result: Success[ValueType],
+) -> ValueType:
     ...
 
 
 # noinspection PyUnresolvedReferences
-def unwrap_success(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ValueType]:
+def unwrap_success(
+    result: Result[ValueType, ErrorType],
+) -> Union[NoResultType, ValueType]:
 
     """
-    Unwraps error from given :class:`Success`.
+    Unwraps the value from given :class:`Success`.
 
     :param result: :class:`Success`
     """
@@ -154,20 +190,26 @@ def unwrap_success(result: Result[ValueType, ErrorType]) -> Union[NoResultType, 
 
 
 @overload
-def unwrap_failure(result: Success[ValueType]) -> NoResultType:
+def unwrap_failure(
+    result: Success[ValueType],
+) -> NoResultType:
     ...
 
 
 @overload
-def unwrap_failure(result: Failure[ErrorType]) -> ErrorType:
+def unwrap_failure(
+    result: Failure[ErrorType],
+) -> ErrorType:
     ...
 
 
 # noinspection PyUnresolvedReferences
-def unwrap_failure(result: Result[ValueType, ErrorType]) -> Union[NoResultType, ErrorType]:
+def unwrap_failure(
+    result: Result[ValueType, ErrorType],
+) -> Union[NoResultType, ErrorType]:
 
     """
-    Unwraps error from given :class:`Failure`.
+    Unwraps the error from given :class:`Failure`.
 
     :param result: :class:`Failure`
     """

@@ -3,6 +3,8 @@ __all__ = (
     "Failure",
 )
 
+import resultful
+
 from typing import (
     Any,
     TypeVar,
@@ -10,8 +12,6 @@ from typing import (
     Literal,
     Final,
 )
-
-import resultful
 
 ValueType = TypeVar("ValueType")
 ErrorType = TypeVar("ErrorType")

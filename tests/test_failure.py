@@ -1,9 +1,12 @@
+import pytest
+
 from hypothesis import (
     given,
     strategies as st,
 )
 
 from resultful import (
+    unsafe,
     success,
     failure,
     unwrap_failure,
@@ -23,6 +26,14 @@ def test_special_methods(error: BaseException) -> None:
 
     assert bool(result) is False
     assert repr(result) == f"resultful.Failure({error!r})"
+
+
+@given(error=st_exceptions())
+def test_unsafe(error: BaseException) -> None:
+    with pytest.raises(BaseException) as exception:
+        unsafe(failure(error))
+
+    assert exception.value is error
 
 
 @given(error=st_exceptions())

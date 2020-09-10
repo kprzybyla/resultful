@@ -4,13 +4,12 @@ __all__ = (
 )
 
 import enum
+import resultful
 
 from typing import (
     Literal,
     Final,
 )
-
-import resultful
 
 
 class NoResultType(enum.Enum):
