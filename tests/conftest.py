@@ -79,4 +79,4 @@ def st_exceptions() -> st.SearchStrategy[BaseException]:
 
 
 def unreachable() -> NoReturn:
-    assert False
+    assert False, "This code should be unreachable!"

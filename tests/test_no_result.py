@@ -1,4 +1,6 @@
-from resultful import NoResult
+from resultful import (
+    NoResult,
+)
 
 
 def test_special_methods() -> None:

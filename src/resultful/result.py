@@ -51,7 +51,7 @@ def unsafe(
 
     :param result: result to be unwrapped
 
-    :raises ErrorType: When result is a Failure.
+    :raises ErrorType: When result is a :class:`Failure`.
     """
 
     if result:
@@ -143,8 +143,8 @@ def failure(
     """
     Returns error wrapped in :class:`Failure`.
 
-    If value is a :class:`Success`, returns NoResult.
-    If value is a :class:`Failure`, returns that :class:`Failure`.
+    If error is a :class:`Success`, returns NoResult.
+    If error is a :class:`Failure`, returns that :class:`Failure`.
 
     :param error: any exception
     """
