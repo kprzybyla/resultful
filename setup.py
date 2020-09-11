@@ -8,7 +8,7 @@ def main():
         python_requires=">= 3.8",
         setup_requires=[
             "setuptools",
-            "setuptools_scm",
+            "setuptools_scm[toml]",
         ],
         extras_require={
             "format": [
@@ -16,7 +16,7 @@ def main():
                 "flake8 ~= 3.8.0",
             ],
             "test": [
-                "mypy @ git+https://github.com/kprzybyla/mypy.git@testplates",
+                "mypy ~= 0.782",
                 "pytest ~= 6.0.1",
                 "pytest-cov ~= 2.8.0",
                 "hypothesis ~= 5.6.0",
