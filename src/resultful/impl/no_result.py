@@ -1,10 +1,15 @@
-__all__ = ["NoResult", "NoResultType"]
+__all__ = (
+    "NoResult",
+    "NoResultType",
+)
 
 import enum
-
-from typing import Literal, Final
-
 import resultful
+
+from typing import (
+    Literal,
+    Final,
+)
 
 
 class NoResultType(enum.Enum):

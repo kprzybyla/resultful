@@ -1,9 +1,23 @@
-from hypothesis import given
-from hypothesis import strategies as st
+import pytest
 
-from resultful import success, failure, unwrap_failure, NoResult
+from hypothesis import (
+    given,
+    strategies as st,
+)
 
-from .conftest import st_exceptions
+from resultful import (
+    unsafe,
+    success,
+    failure,
+    unwrap_failure,
+    Result,
+    NoResult,
+)
+
+from .conftest import (
+    st_exceptions,
+    unreachable,
+)
 
 
 @given(error=st_exceptions())
@@ -12,6 +26,14 @@ def test_special_methods(error: BaseException) -> None:
 
     assert bool(result) is False
     assert repr(result) == f"resultful.Failure({error!r})"
+
+
+@given(error=st_exceptions())
+def test_unsafe(error: BaseException) -> None:
+    with pytest.raises(BaseException) as exception:
+        unsafe(failure(error))
+
+    assert exception.value is error
 
 
 @given(error=st_exceptions())
@@ -62,8 +84,44 @@ def test_error_wrapped_in_success(value: int) -> None:
 
 
 @given(error=st_exceptions())
-def test_walrus_operator(error: BaseException) -> None:
-    if not (result := failure(error)):
+def test_result_if_condition(error: BaseException) -> None:
+    def compute() -> Result[int, BaseException]:
+        return failure(error)
+
+    result = compute()
+
+    if not result:
         assert result.error is error
     else:
-        assert False
+        unreachable()
+
+    if result.is_failure:
+        assert result.error is error
+    else:
+        unreachable()
+
+    if result.is_success:
+        unreachable()
+    else:
+        assert result.error is error
+
+
+@given(error=st_exceptions())
+def test_result_if_condition_walrus_operator(error: BaseException) -> None:
+    def compute() -> Result[int, BaseException]:
+        return failure(error)
+
+    if not (result := compute()):
+        assert result.error is error
+    else:
+        unreachable()
+
+    if (result := compute()).is_failure:
+        assert result.error is error
+    else:
+        unreachable()
+
+    if (result := compute()).is_success:
+        unreachable()
+    else:
+        assert result.error is error

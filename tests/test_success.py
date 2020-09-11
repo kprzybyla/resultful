@@ -1,9 +1,21 @@
-from hypothesis import given
-from hypothesis import strategies as st
+from hypothesis import (
+    given,
+    strategies as st,
+)
 
-from resultful import success, failure, unwrap_success, NoResult
+from resultful import (
+    unsafe,
+    success,
+    failure,
+    unwrap_success,
+    Result,
+    NoResult,
+)
 
-from .conftest import st_exceptions
+from .conftest import (
+    st_exceptions,
+    unreachable,
+)
 
 
 @given(value=st.integers())
@@ -12,6 +24,11 @@ def test_special_methods(value: int) -> None:
 
     assert bool(result) is True
     assert repr(result) == f"resultful.Success({value!r})"
+
+
+@given(value=st.integers())
+def test_unsafe(value: int) -> None:
+    assert unsafe(success(value)) == value
 
 
 @given(value=st.integers())
@@ -62,8 +79,44 @@ def test_error_wrapped_in_failure(error: Exception) -> None:
 
 
 @given(value=st.integers())
-def test_walrus_operator(value: int) -> None:
-    if result := success(value):
+def test_result_if_condition(value: int) -> None:
+    def compute() -> Result[int, BaseException]:
+        return success(value)
+
+    result = compute()
+
+    if result:
         assert result.value is value
     else:
-        assert False
+        unreachable()
+
+    if result.is_success:
+        assert result.value is value
+    else:
+        unreachable()
+
+    if result.is_failure:
+        unreachable()
+    else:
+        assert result.value is value
+
+
+@given(value=st.integers())
+def test_result_if_condition_walrus_operator(value: int) -> None:
+    def get_result() -> Result[int, BaseException]:
+        return success(value)
+
+    if result := get_result():
+        assert result.value is value
+    else:
+        unreachable()
+
+    if (result := get_result()).is_success:
+        assert result.value is value
+    else:
+        unreachable()
+
+    if (result := get_result()).is_failure:
+        unreachable()
+    else:
+        assert result.value is value

@@ -1,4 +1,9 @@
-from typing import Type, TypeVar, Sequence
+from typing import (
+    Type,
+    TypeVar,
+    Sequence,
+    NoReturn,
+)
 
 from hypothesis import strategies as st
 
@@ -71,3 +76,7 @@ EXCEPTIONS: Sequence[Type[BaseException]] = [
 
 def st_exceptions() -> st.SearchStrategy[BaseException]:
     return st.sampled_from(EXCEPTIONS).map(lambda exception: exception())
+
+
+def unreachable() -> NoReturn:
+    assert False, "This code should be unreachable!"

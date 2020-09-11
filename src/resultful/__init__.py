@@ -1,28 +1,36 @@
-__all__ = [
+__all__ = (
     "Result",
+    "AlwaysSuccess",
+    "AlwaysFailure",
     "ResultType",
     "NoResultType",
+    "unsafe",
     "success",
     "failure",
     "unwrap_success",
     "unwrap_failure",
     "NoResult",
-]
+)
 
 # Annotations
 
-from .ui import Result
+from .result import (
+    Result,
+    AlwaysSuccess,
+    AlwaysFailure,
+)
 
 # Types
 
-from .ui import (
+from .result import (
     ResultType,
     NoResultType,
 )
 
 # Concretes
 
-from .ui import (
+from .result import (
+    unsafe,
     success,
     failure,
     unwrap_success,

@@ -12,6 +12,9 @@ exclude = '''
     | build
     | dist
   )/
-  | _version\.py
+  | __version__\.py
 )
 '''
+
+[tool.setuptools_scm]
+write_to = 'src/resultful/__version__.py'
